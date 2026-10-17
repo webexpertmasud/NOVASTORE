@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NovaStore | Modern Online Shopping</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #176b55;
+    --dark: #17231e;
+    --light: #f5f7f5;
+    --accent: #f3bd62;
+}
+body { font-family: Arial, sans-serif; color: var(--dark); }
+a { text-decoration: none; }
+.topbar { background: var(--dark); color: white; font-size: 12px; padding: 10px 0; }
+.navbar-brand { font-size: 27px; font-weight: 800; letter-spacing: -1px; }
+.brand-mark { color: var(--primary); }
+.nav-link { font-size: 14px; font-weight: 600; }
+.icon-link { font-size: 19px; color: var(--dark); margin-left: 16px; }
+.btn-primary-custom { background: var(--primary); color: white; border: 1px solid var(--primary); padding: 13px 23px; border-radius: 5px; font-weight: 600; }
+.btn-primary-custom:hover { background: var(--dark); color: white; border-color: var(--dark); }
+.btn-outline-custom { border: 1px solid var(--dark); padding: 12px 22px; border-radius: 5px; font-weight: 600; color: var(--dark); }
+.btn-outline-custom:hover { background: var(--dark); color: white; }
+.section { padding: 75px 0; }
+.section-title { font-size: clamp(28px, 3.5vw, 40px); font-weight: 800; letter-spacing: -1px; }
+.section-subtitle { color: #748078; font-size: 14px; line-height: 1.8; }
+.hero { background: #edf3ed; padding: 80px 0; }
+.hero h1 { font-size: clamp(40px, 5.5vw, 68px); font-weight: 800; line-height: 1.08; letter-spacing: -2px; }
+.hero h1 span { color: var(--primary); }
+.hero-image { width: 100%; height: 450px; object-fit: cover; border-radius: 12px; }
+.hero-label { color: var(--primary); text-transform: uppercase; font-size: 12px; font-weight: 800; letter-spacing: 2px; }
+.feature { padding: 24px 10px; border: 1px solid #e9eeea; border-radius: 8px; height: 100%; }
+.feature i { color: var(--primary); font-size: 25px; }
+.feature h6 { font-weight: 700; margin-top: 12px; font-size: 14px; }
+.feature p { color: #7b847e; font-size: 12px; margin-bottom: 0; }
+.category-card { border-radius: 9px; overflow: hidden; position: relative; height: 270px; background: #eee; }
+.category-card img { width: 100%; height: 100%; object-fit: cover; transition: .4s; }
+.category-card:hover img { transform: scale(1.06); }
+.category-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, #10241dcc, transparent 70%); }
+.category-content { position: absolute; bottom: 20px; left: 20px; color: white; }
+.product-card { border: 1px solid #edf0ed; border-radius: 8px; overflow: hidden; height: 100%; background: white; }
+.product-image { height: 250px; position: relative; background: #f1f2ef; overflow: hidden; }
+.product-image img { width: 100%; height: 100%; object-fit: cover; transition: .4s; }
+.product-card:hover .product-image img { transform: scale(1.05); }
+.product-badge { position: absolute; top: 12px; left: 12px; background: var(--accent); color: #33240e; padding: 5px 9px; border-radius: 3px; font-size: 10px; font-weight: 800; }
+.product-body { padding: 17px; }
+.product-body h6 { font-weight: 700; font-size: 14px; }
+.stars { color: #e8a83e; font-size: 12px; }
+.price { font-weight: 800; }
+.old-price { color: #999; text-decoration: line-through; font-weight: 400; margin-left: 5px; }
+.product-add { width: 100%; border: 1px solid var(--primary); color: var(--primary); background: white; padding: 9px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+.product-add:hover { background: var(--primary); color: white; }
+.deal-section { background: #eaf2ec; }
+.deal-image { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; }
+.deal-label { color: var(--primary); font-weight: 800; font-size: 12px; letter-spacing: 2px; }
+.deal-price { font-size: 28px; font-weight: 800; }
+.blog-image { width: 100%; height: 210px; object-fit: cover; border-radius: 8px; }
+.blog-meta { font-size: 11px; color: #7c867e; }
+.review-card { background: white; padding: 25px; border: 1px solid #e8ece8; border-radius: 8px; height: 100%; }
+.review-avatar { width: 43px; height: 43px; border-radius: 50%; object-fit: cover; }
+.newsletter { background: var(--primary); color: white; }
+.newsletter-form { display: flex; max-width: 470px; margin: 25px auto 0; gap: 8px; }
+.newsletter-form input { min-width: 0; flex: 1; padding: 13px; border: 0; border-radius: 5px; outline: none; }
+.newsletter-form button { background: var(--accent); border: 0; padding: 13px 18px; border-radius: 5px; font-weight: 700; }
+footer { background: var(--dark); color: white; padding: 60px 0 20px; }
+footer h6 { font-weight: 700; margin-bottom: 20px; }
+footer p, footer a { color: #b9c5bd; font-size: 13px; line-height: 2; }
+footer a:hover { color: var(--accent); }
+.footer-bottom { border-top: 1px solid #35443c; padding-top: 20px; margin-top: 35px; font-size: 12px; color: #b9c5bd; }
+@media(max-width:767px) {
+    .section { padding: 50px 0; }
+    .hero { padding: 55px 0; }
+    .hero-image { height: 310px; margin-top: 30px; }
+    .product-image { height: 200px; }
+    .category-card { height: 230px; }
+    .deal-image { height: 270px; margin-top: 25px; }
+    .newsletter-form { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- 1. Announcement Bar -->
+<div class="topbar">
+    <div class="container d-flex justify-content-between flex-wrap gap-2">
+        <span><i class="bi bi-truck me-2"></i>Free shipping on orders over $75</span>
+        <span>Welcome to NovaStore | Quality you can trust</span>
+    </div>
+</div>
+
+<!-- 2. Header & Navigation -->
+<nav class="navbar navbar-expand-lg bg-white sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#"><span class="brand-mark">NOVA</span>STORE.</a>
+        <div class="d-flex align-items-center order-lg-2">
+            <a class="icon-link" href="#products" aria-label="Search"><i class="bi bi-search"></i></a>
+            <a class="icon-link" href="#products" aria-label="Account"><i class="bi bi-person"></i></a>
+            <a class="icon-link position-relative" href="#products" aria-label="Cart">
+                <i class="bi bi-bag"></i>
+                <span id="cartCount" class="badge bg-success position-absolute top-0 start-100 translate-middle">0</span>
+            </a>
+            <button class="navbar-toggler ms-3" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse order-lg-1" id="mainNav">
+            <ul class="navbar-nav mx-auto gap-lg-2">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+                <li class="nav-item"><a class="nav-link" href="#products">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#deal">Special Offers</a></li>
+                <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 3. Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="hero-label mb-3">Discover something exceptional</div>
+                <h1>Everyday Essentials.<br><span>Extraordinary</span><br>Living.</h1>
+                <p class="section-subtitle mt-4 mb-4">Discover thoughtfully selected products that combine quality, style, and value. Everything you need, all in one place.</p>
+                <a href="#products" class="btn-primary-custom me-2">Shop Collection <i class="bi bi-arrow-right ms-2"></i></a>
+                <a href="#categories" class="btn-outline-custom d-inline-block mt-3 mt-sm-0">Explore Categories</a>
+                <div class="d-flex gap-4 mt-5 flex-wrap">
+                    <div><h4 class="fw-bold mb-0">500+</h4><small class="text-secondary">Products</small></div>
+                    <div><h4 class="fw-bold mb-0">10k+</h4><small class="text-secondary">Happy Customers</small></div>
+                    <div><h4 class="fw-bold mb-0">4.9/5</h4><small class="text-secondary">Customer Rating</small></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img class="hero-image" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1100&q=85" alt="Featured lifestyle products">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. Store Benefits -->
+<section class="py-4">
+    <div class="container">
+        <div class="row g-3">
+            <div class="col-6 col-lg-3"><div class="feature"><i class="bi bi-truck"></i><h6>Fast Delivery</h6><p>Reliable shipping to your door</p></div></div>
+            <div class="col-6 col-lg-3"><div class="feature"><i class="bi bi-shield-check"></i><h6>Secure Payments</h6><p>Checkout with confidence</p></div></div>
+            <div class="col-6 col-lg-3"><div class="feature"><i class="bi bi-arrow-repeat"></i><h6>Easy Returns</h6><p>Simple return experience</p></div></div>
+            <div class="col-6 col-lg-3"><div class="feature"><i class="bi bi-headset"></i><h6>Customer Support</h6><p>We're here when you need us</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. Shop Categories -->
+<section class="section bg-light" id="categories">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="hero-label">Find your favorites</div>
+            <h2 class="section-title mt-2">Shop By Category</h2>
+            <p class="section-subtitle">Explore our carefully curated collections.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-6 col-lg-3">
+                <a href="#products"><div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80" alt="Watches">
+                    <div class="category-overlay"></div><div class="category-content"><h5>Accessories</h5><small>Explore collection →</small></div>
+                </div></a>
+            </div>
+            <div class="col-6 col-lg-3">
+                <a href="#products"><div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Footwear">
+                    <div class="category-overlay"></div><div class="category-content"><h5>Footwear</h5><small>Explore collection →</small></div>
+                </div></a>
+            </div>
+            <div class="col-6 col-lg-3">
+                <a href="#products"><div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Apparel">
+                    <div class="category-overlay"></div><div class="category-content"><h5>Apparel</h5><small>Explore collection →</small></div>
+                </div></a>
+            </div>
+            <div class="col-6 col-lg-3">
+                <a href="#products"><div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?auto=format&fit=crop&w=600&q=80" alt="Home and living">
+                    <div class="category-overlay"></div><div class="category-content"><h5>Home & Living</h5><small>Explore collection →</small></div>
+                </div></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. Featured Products -->
+<section class="section" id="products">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div><div class="hero-label">Handpicked for you</div><h2 class="section-title mt-2">Featured Products</h2></div>
+            <a href="#categories" class="btn-outline-custom">View All Products →</a>
+        </div>
+        <div class="row g-3 g-md-4">
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80" alt="Classic watch"><span class="product-badge">BESTSELLER</span></div>
+                <div class="product-body"><div class="stars mb-2">★★★★★ <span class="text-muted">(28)</span></div><h6>Classic Everyday Watch</h6><div class="price mb-3">$49.00 <span class="old-price">$65.00</span></div><button class="product-add add-cart"> <i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+            </div></div>
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Red sneakers"><span class="product-badge">POPULAR</span></div>
+                <div class="product-body"><div class="stars mb-2">★★★★★ <span class="text-muted">(19)</span></div><h6>Urban Comfort Sneakers</h6><div class="price mb-3">$69.00</div><button class="product-add add-cart"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+            </div></div>
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Cotton t-shirt"></div>
+                <div class="product-body"><div class="stars mb-2">★★★★★ <span class="text-muted">(35)</span></div><h6>Premium Cotton Tee</h6><div class="price mb-3">$25.00</div><button class="product-add add-cart"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+            </div></div>
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80" alt="Designer handbag"><span class="product-badge">NEW</span></div>
+                <div class="product-body"><div class="stars mb-2">★★★★★ <span class="text-muted">(12)</span></div><h6>Everyday Carry Bag</h6><div class="price mb-3">$59.00</div><button class="product-add add-cart"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+            </div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. Promotional Banner -->
+<section class="section deal-section" id="deal">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="deal-label">LIMITED-TIME OFFER</div>
+                <h2 class="section-title mt-3">Good Finds.<br>Even Better Prices.</h2>
+                <p class="section-subtitle mt-3">Discover selected favorites at special prices. Find your next everyday essential before the offer ends.</p>
+                <div class="deal-price my-4">Up to 30% OFF</div>
+                <a href="#products" class="btn-primary-custom">Shop The Sale <i class="bi bi-arrow-right ms-2"></i></a>
+            </div>
+            <div class="col-lg-6">
+                <img class="deal-image" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=85" alt="Special shopping offers" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 8. New Arrivals -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="hero-label">Just landed</div>
+            <h2 class="section-title mt-2">Fresh New Arrivals</h2>
+            <p class="section-subtitle">The latest additions to your wishlist.</p>
+        </div>
+        <div class="row g-3 g-md-4">
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80" alt="Modern fashion" loading="lazy"><span class="product-badge">NEW</span></div>
+                <div class="product-body"><h6>Modern Style Jacket</h6><div class="price mb-3">$79.00</div><button class="product-add add-cart">Add to Cart +</button></div>
+            </div></div>
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" alt="Headphones" loading="lazy"></div>
+                <div class="product-body"><h6>Wireless Headphones</h6><div class="price mb-3">$89.00</div><button class="product-add add-cart">Add to Cart +</button></div>
+            </div></div>
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80" alt="Modern home chair" loading="lazy"></div>
+                <div class="product-body"><h6>Minimal Home Accent</h6><div class="price mb-3">$45.00</div><button class="product-add add-cart">Add to Cart +</button></div>
+            </div></div>
+            <div class="col-6 col-lg-3"><div class="product-card">
+                <div class="product-image"><img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80" alt="Fragrance bottle" loading="lazy"><span class="product-badge">TRENDING</span></div>
+                <div class="product-body"><h6>Signature Fragrance</h6><div class="price mb-3">$39.00</div><button class="product-add add-cart">Add to Cart +</button></div>
+            </div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 9. About the Business -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1000&q=85" class="img-fluid rounded-3" alt="Our workspace" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-label">A little about us</div>
+                <h2 class="section-title mt-3">Shopping Made Simple. Quality Made Meaningful.</h2>
+                <p class="section-subtitle mt-3">We believe shopping should be simple, inspiring, and reliable. Our team carefully selects products with an emphasis on design, everyday usefulness, and value.</p>
+                <p class="section-subtitle">From discovering your favorites to receiving your order, we aim to make every step a better experience.</p>
+                <div class="row my-4">
+                    <div class="col-6"><h3 class="fw-bold text-success">100%</h3><p class="small text-secondary">Customer-focused</p></div>
+                    <div class="col-6"><h3 class="fw-bold text-success">24/7</h3><p class="small text-secondary">Online shopping</p></div>
+                </div>
+                <a href="#footer" class="btn-primary-custom">Learn More About Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 10. Customer Reviews -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="hero-label">Customer feedback</div>
+            <h2 class="section-title mt-2">What Our Customers Say</h2>
+            <p class="section-subtitle">A great shopping experience makes all the difference.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4"><div class="review-card">
+                <div class="stars mb-3">★★★★★</div>
+                <p class="section-subtitle">"The product quality was excellent, and ordering was simple. Everything arrived just as expected."</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                    <img class="review-avatar" src="https://i.pravatar.cc/100?img=47" alt="Customer portrait">
+                    <div><h6 class="mb-1 fw-bold">Sarah M.</h6><small class="text-secondary">Verified customer</small></div>
+                </div>
+            </div></div>
+            <div class="col-md-4"><div class="review-card">
+                <div class="stars mb-3">★★★★★</div>
+                <p class="section-subtitle">"A clean website, great product selection, and a smooth checkout. I'll definitely shop here again."</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                    <img class="review-avatar" src="https://i.pravatar.cc/100?img=12" alt="Customer portrait">
+                    <div><h6 class="mb-1 fw-bold">James R.</h6><small class="text-secondary">Verified customer</small></div>
+                </div>
+            </div></div>
+            <div class="col-md-4"><div class="review-card">
+                <div class="stars mb-3">★★★★★</div>
+                <p class="section-subtitle">"I loved how easy it was to find what I needed. The product details were clear and helpful."</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                    <img class="review-avatar" src="https://i.pravatar.cc/100?img=44" alt="Customer portrait">
+                    <div><h6 class="mb-1 fw-bold">Amina K.</h6><small class="text-secondary">Verified customer</small></div>
+                </div>
+            </div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 11. Blog & Guides -->
+<section class="section bg-light" id="blog">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-5">
+            <div><div class="hero-label">Ideas and inspiration</div><h2 class="section-title mt-2">From Our Journal</h2></div>
+            <a href="#footer" class="btn-outline-custom">View All Articles →</a>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4"><article>
+                <img class="blog-image" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80" alt="Style inspiration" loading="lazy">
+                <div class="blog-meta mt-3">STYLE & LIFESTYLE · 5 MIN READ</div>
+                <h5 class="fw-bold mt-2">How to Find Your Everyday Style</h5>
+                <p class="section-subtitle">Simple ideas for building a wardrobe that feels uniquely yours.</p>
+                <a href="#blog" class="fw-bold text-success small">Read Article →</a>
+            </article></div>
+            <div class="col-md-4"><article>
+                <img class="blog-image" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Shopping and retail" loading="lazy">
+                <div class="blog-meta mt-3">SHOPPING GUIDE · 4 MIN READ</div>
+                <h5 class="fw-bold mt-2">A Smarter Way to Shop Online</h5>
+                <p class="section-subtitle">What to look for when choosing quality products for everyday use.</p>
+                <a href="#blog" class="fw-bold text-success small">Read Article →</a>
+            </article></div>
+            <div class="col-md-4"><article>
+                <img class="blog-image" src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80" alt="Home decor inspiration" loading="lazy">
+                <div class="blog-meta mt-3">HOME & LIVING · 6 MIN READ</div>
+                <h5 class="fw-bold mt-2">Small Changes, Better Living</h5>
+                <p class="section-subtitle">Thoughtful ways to make your home feel more comfortable and personal.</p>
+                <a href="#blog" class="fw-bold text-success small">Read Article →</a>
+            </article></div>
+        </div>
+    </div>
+</section>
+
+<!-- 12. Newsletter & Footer -->
+<section class="newsletter section text-center">
+    <div class="container">
+        <i class="bi bi-envelope-paper fs-1"></i>
+        <h2 class="section-title mt-3">A Better Inbox Starts Here</h2>
+        <p class="mb-0">Get new arrivals, shopping inspiration, and special offers.</p>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email address" aria-label="Email address" required>
+            <button type="submit">Subscribe <i class="bi bi-arrow-right ms-1"></i></button>
+        </form>
+        <small class="d-block mt-3">You can unsubscribe at any time.</small>
+        <p id="newsletterMessage" class="mt-3 mb-0 small"></p>
+    </div>
+</section>
+
+<footer id="footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <a class="navbar-brand text-white" href="#"><span style="color:#72c7a7">NOVA</span>STORE.</a>
+                <p class="mt-3">Your destination for thoughtfully selected products, everyday essentials, and a better online shopping experience.</p>
+                <div class="d-flex gap-3 fs-5">
+                    <a href="#footer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#footer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#footer" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="col-6 col-lg-2 col-md-3">
+                <h6>SHOP</h6>
+                <p><a href="#categories">All Categories</a></p>
+                <p><a href="#products">Featured Products</a></p>
+                <p><a href="#products">New Arrivals</a></p>
+                <p><a href="#deal">Special Offers</a></p>
+            </div>
+            <div class="col-6 col-lg-2 col-md-3">
+                <h6>SUPPORT</h6>
+                <p><a href="#footer">Contact Us</a></p>
+                <p><a href="#footer">Shipping Policy</a></p>
+                <p><a href="#footer">Returns & Refunds</a></p>
+                <p><a href="#footer">FAQs</a></p>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h6>CONTACT INFORMATION</h6>
+                <p><i class="bi bi-envelope me-2"></i>support@example.com</p>
+                <p><i class="bi bi-telephone me-2"></i>+1 000 000 0000</p>
+                <p><i class="bi bi-geo-alt me-2"></i>Your business address</p>
+                <p>Secure payments · Customer-first service</p>
+            </div>
+        </div>
+        <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between gap-3">
+            <span>© <span id="year"></span> NovaStore. All rights reserved.</span>
+            <span><a href="#footer">Privacy Policy</a> &nbsp; | &nbsp; <a href="#footer">Terms & Conditions</a></span>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+let cart = 0;
+document.querySelectorAll('.add-cart').forEach(button => {
+    button.addEventListener('click', () => {
+        cart++;
+        document.getElementById('cartCount').textContent = cart;
+        const original = button.innerHTML;
+        button.innerHTML = '<i class="bi bi-check2 me-2"></i>Added (Demo)';
+        setTimeout(() => button.innerHTML = original, 1000);
+    });
+});
+
+document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('newsletterMessage').textContent =
+        'Thank you for subscribing! Connect an email service to save subscriptions.';
+    this.reset();
+});
+</script>
+</body>
+</html>
